@@ -18,5 +18,5 @@ public interface UserDAO {
 	
 	public String unfollow(User firstUser, User secondUser)  throws DAOException;
 	
-	public List<PopularUser> mostPopularFollower(User user) throws DAOException;
+	public List<PopularUser> mostPopularFollower() throws DAOException;
 }

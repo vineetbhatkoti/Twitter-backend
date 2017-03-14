@@ -98,7 +98,7 @@ public class UserDAOImpl implements UserDAO{
 		return message;
 	}
 
-	public List<PopularUser> mostPopularFollower(User user) throws DAOException {
+	public List<PopularUser> mostPopularFollower() throws DAOException {
 		String qry = "select table1.person_id, table1.follower_person_id from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc) as table1  join ( select person_id, max(fol) as fol from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc)   group by person_id ) as table2 on table1.person_id = table2.person_id and table1.fol =table2.fol order by person_id;";
 		List<PopularUser> list = namedParameterJdbcTemplate.query(qry,
 		        new RowMapper<PopularUser>() {

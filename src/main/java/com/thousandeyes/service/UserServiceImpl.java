@@ -80,15 +80,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public List<PopularUser> mostPopularFollower(User user) throws UserException{
+	public List<PopularUser> mostPopularFollower() throws UserException{
 		
 		try
 		{
 			List<PopularUser> listUser= null;
-			if(user != null)
-			{
-				listUser = userDAO.mostPopularFollower(user);
-			}
+			listUser = userDAO.mostPopularFollower();
 			return listUser;
 		}
 		catch(DAOException ex)

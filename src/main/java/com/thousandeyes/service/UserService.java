@@ -18,5 +18,5 @@ public interface UserService {
 	
 	public String unfollow(User firstUser, User secondUser) throws UserException;
 	
-	public List<PopularUser> mostPopularFollower(User user) throws UserException;
+	public List<PopularUser> mostPopularFollower() throws UserException;
 }

@@ -90,12 +90,10 @@ public class UserContorller {
 
 	
 	@RequestMapping(value="/mostPopularFollower",method = RequestMethod.GET, produces = "application/json")
-    public List<PopularUser> mostPopularFollower(@RequestParam(value="userId") int id) {
-		User user = new User();
-		user.setId(id);
+    public List<PopularUser> mostPopularFollower() {
 		List<PopularUser> list =null;
 		try {
-			list = userService.mostPopularFollower(user);
+			list = userService.mostPopularFollower();
 		} catch (UserException e) {
 			
 			e.printStackTrace();

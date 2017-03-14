@@ -1,0 +1,35 @@
+Twitter Backend Messaging Service
+__________________________________________________________________________________________________________________________________
+
+This Spring based project has the following functionality implemented in form of REST API:
+
+All the REST APIs are secured by basic authentication
+
+1)  GET  /user/followers    [QueryParam: userId]
+	The list of followers of the user
+	
+2)  GET  /user/follows      [QueryParam: userId]
+    The list of people the user is following
+    
+3)  POST /user/startFollowing  [QueryParam: firstUserId, secondUserId]
+	Endpoint for start following other users as identified by firstUserId 
+
+4) 	POST /user/unfollow    [QueryParam: firstUserId, secondUserId]
+ 	Endpoint to unfollow a user as identified by firstUserId
+ 	
+ 5) GET /tweet/list        [QueryParam: userId, search (Optional)]
+  	Endpoint to read all the tweets of a user and of that of the users they follow . Search param can be passed within the request to narrow down on keywords.
+  	
+  		
+Extra Features:
+
+1) GET /user/mostPopularFollower 	
+   Endpoint to get all the users along with the most popular follower. The most popular follower is identified by the number of followers they have. 
+   In this implementation a user can have one or more popular follower based on the number of people following them. 
+   
+   Eg. userId 9 is followed by userId 1,8,5,6.
+   The number of followers userId 1,8,5,6 have are 6,6,2,1.
+   Therefore for userId 9, userId 1 and 8 would be the most popular followers as they both have 6 followers respectively.  	
+         	    
+    
+     
