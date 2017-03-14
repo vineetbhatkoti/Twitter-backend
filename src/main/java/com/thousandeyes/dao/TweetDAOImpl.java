@@ -39,7 +39,7 @@ public class TweetDAOImpl implements TweetDAO{
 		Map<String, List> namedParameters = new HashMap<String, List>(); 
 		namedParameters.put("listOfUser", userIds);
 		List<Tweet> tweetList = null;
-		if(searchParam.equalsIgnoreCase(""))
+		if(searchParam == null)
 		{
 			tweetList = namedParameterJdbcTemplate.query( "select id, person_id, content from tweet where person_id IN ( :listOfUser )", namedParameters,
 			new RowMapper<Tweet>() {
