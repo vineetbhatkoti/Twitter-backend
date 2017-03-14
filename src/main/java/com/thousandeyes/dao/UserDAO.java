@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.thousandeyes.exception.DAOException;
+import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
 @Repository
@@ -16,4 +17,6 @@ public interface UserDAO {
 	public String startFollowing(User firstUser, User secondUser) throws DAOException;
 	
 	public String unfollow(User firstUser, User secondUser)  throws DAOException;
+	
+	public List<PopularUser> mostPopularFollower(User user) throws DAOException;
 }

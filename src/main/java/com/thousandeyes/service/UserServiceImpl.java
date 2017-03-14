@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.thousandeyes.dao.UserDAOImpl;
 import com.thousandeyes.exception.DAOException;
 import com.thousandeyes.exception.UserException;
+import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
 @Service
@@ -72,6 +73,23 @@ public class UserServiceImpl implements UserService {
 				message = userDAO.unfollow(firstUser, secondUser);
 			}
 			return message;
+		}
+		catch(DAOException ex)
+		{
+			throw new UserException("Error while unfollowing user",ex);
+		}
+	}
+
+	public List<PopularUser> mostPopularFollower(User user) throws UserException{
+		
+		try
+		{
+			List<PopularUser> listUser= null;
+			if(user != null)
+			{
+				listUser = userDAO.mostPopularFollower(user);
+			}
+			return listUser;
 		}
 		catch(DAOException ex)
 		{

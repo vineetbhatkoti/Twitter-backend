@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.thousandeyes.exception.UserException;
+import com.thousandeyes.model.PopularUser;
+import com.thousandeyes.model.ResponseMessage;
 import com.thousandeyes.model.User;
 import com.thousandeyes.service.UserServiceImpl;
 
@@ -15,7 +18,7 @@ public class UserContorller {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	@RequestMapping("/userFollowers")
+	@RequestMapping(value="/userFollowers",method = RequestMethod.GET, produces = "application/json")
     public List<User> getFollowersOfUser(@RequestParam(value="userId") int id) {
 		User user = new User();
 		user.setId(id);
@@ -32,7 +35,7 @@ public class UserContorller {
 	
 	
 	
-	@RequestMapping("/userFollows")
+	@RequestMapping(value="/userFollows",method = RequestMethod.GET, produces = "application/json")
     public List<User> getUserFollows(@RequestParam(value="userId") int id) {
 		User user = new User();
 		user.setId(id);
@@ -47,8 +50,8 @@ public class UserContorller {
 		return list;
 	}
 	
-	@RequestMapping("/startFollowing")
-    public String startFollowing(@RequestParam(value="firstUserId") int userId1,@RequestParam(value="secondUserId") int userId2) {
+	@RequestMapping(value="/startFollowing", method = RequestMethod.POST ,produces = "application/json")
+    public ResponseMessage startFollowing(@RequestParam(value="firstUserId") int userId1,@RequestParam(value="secondUserId") int userId2) {
 		User firstUser = new User();
 		firstUser.setId(userId1);
 		User secondUser = new User();
@@ -60,12 +63,13 @@ public class UserContorller {
 			
 			e.printStackTrace();
 		}
-		
-		return message;
+		ResponseMessage response = new ResponseMessage();
+		response.setMessage(message);
+		return response;
 	}
 	
-	@RequestMapping("/unfollow")
-    public String unfollow(@RequestParam(value="firstUserId") int userId1,@RequestParam(value="secondUserId") int userId2) {
+	@RequestMapping(value="/unfollow",method= RequestMethod.POST, produces = "application/json")
+    public ResponseMessage unfollow(@RequestParam(value="firstUserId") int userId1,@RequestParam(value="secondUserId") int userId2) {
 		User firstUser = new User();
 		firstUser.setId(userId1);
 		User secondUser = new User();
@@ -78,7 +82,25 @@ public class UserContorller {
 			e.printStackTrace();
 		}
 		
-		return message;
+		ResponseMessage response = new ResponseMessage();
+		response.setMessage(message);
+		return response;
 	}
 
+	
+	@RequestMapping(value="/mostPopularFollower",method = RequestMethod.GET, produces = "application/json")
+    public List<PopularUser> mostPopularFollower(@RequestParam(value="userId") int id) {
+		User user = new User();
+		user.setId(id);
+		List<PopularUser> list =null;
+		try {
+			list = userService.mostPopularFollower(user);
+		} catch (UserException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 }

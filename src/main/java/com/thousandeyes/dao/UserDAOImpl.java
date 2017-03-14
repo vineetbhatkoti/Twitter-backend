@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.thousandeyes.exception.DAOException;
+import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
 @Repository
@@ -95,6 +96,22 @@ public class UserDAOImpl implements UserDAO{
 			message = "Error while UserId: " + secondUser.getId()+" tried to unfollowed by UserId: "+firstUser.getId();
 		}
 		return message;
+	}
+
+	public List<PopularUser> mostPopularFollower(User user) throws DAOException {
+		String qry = "select table1.person_id, table1.follower_person_id from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc) as table1  join ( select person_id, max(fol) as fol from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc)   group by person_id ) as table2 on table1.person_id = table2.person_id and table1.fol =table2.fol order by person_id;";
+		List<PopularUser> list = namedParameterJdbcTemplate.query(qry,
+		        new RowMapper<PopularUser>() {
+		            public PopularUser mapRow(ResultSet rs, int rowNum) throws SQLException {
+		                PopularUser user = new PopularUser();
+		                user.setUserId(rs.getInt("person_id"));
+		                user.setMostPopularFollowerId(rs.getInt("follower_person_id"));
+		                return user;
+		            }
+		        });
+		return list;
+		
+		
 	}
 
 }
