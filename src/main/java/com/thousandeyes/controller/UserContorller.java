@@ -14,11 +14,12 @@ import com.thousandeyes.model.User;
 import com.thousandeyes.service.UserServiceImpl;
 
 @RestController
+@RequestMapping("/user")
 public class UserContorller {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	@RequestMapping(value="/userFollowers",method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value="/followers",method = RequestMethod.GET, produces = "application/json")
     public List<User> getFollowersOfUser(@RequestParam(value="userId") int id) {
 		User user = new User();
 		user.setId(id);
@@ -35,7 +36,7 @@ public class UserContorller {
 	
 	
 	
-	@RequestMapping(value="/userFollows",method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value="/follows",method = RequestMethod.GET, produces = "application/json")
     public List<User> getUserFollows(@RequestParam(value="userId") int id) {
 		User user = new User();
 		user.setId(id);

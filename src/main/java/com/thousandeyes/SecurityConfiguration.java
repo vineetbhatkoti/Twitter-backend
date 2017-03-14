@@ -14,15 +14,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/h2-console/*").permitAll()
-            .antMatchers(HttpMethod.GET, "/userFollowers*").permitAll()
-            .antMatchers(HttpMethod.GET, "/userFollows*").permitAll()
-            .antMatchers(HttpMethod.POST, "/startFollowing*").permitAll()
-            .antMatchers(HttpMethod.POST, "/unfollow*").permitAll()
-            .antMatchers(HttpMethod.GET, "/tweetList*").permitAll()
-            .antMatchers(HttpMethod.GET, "/mostPopularFollower*").permitAll()
-            .anyRequest().authenticated();
+        http.httpBasic().and()
+        .authorizeRequests()
+        .antMatchers("/h2-console/*").permitAll()
+        .antMatchers(HttpMethod.GET, "/user/followers*").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/user/follows*").hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/user/startFollowing*").hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/user/unfollow*").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/tweet/list*").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/user/mostPopularFollower*").hasRole("USER");
+       
         
         http.csrf().disable();
         http.headers().frameOptions().disable();
