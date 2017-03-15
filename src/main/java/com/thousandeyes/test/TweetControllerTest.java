@@ -22,7 +22,8 @@ public class TweetControllerTest {
 	
 	@Autowired
     private MockMvc mockMvc;
-	
+
+	//Test case for getting the tweet list of the user
 	@Test
 	public void gettweetListTest() throws Exception
 	{
@@ -33,6 +34,7 @@ public class TweetControllerTest {
 	}
 	
 	
+	//Test case for getting the tweet list of the user along with the search param
 	@Test
 	public void tweetListWithSearchTest() throws Exception
 	{

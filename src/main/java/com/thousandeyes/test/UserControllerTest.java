@@ -25,6 +25,7 @@ public class UserControllerTest {
 	@Autowired
     private MockMvc mockMvc;
 	
+	//Test case to check the people the user follows
 	@Test
 	public void getUserFollowsTest() throws Exception
 	{
@@ -34,6 +35,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
+	//Test case to get the follower of the users
 	@Test
 	public void getFollowersOfUserTest() throws Exception
 	{
@@ -43,6 +45,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
+	//Test case to check if the user is following other users
 	@Test
 	public void startFollowingTest() throws Exception
 	{
@@ -52,6 +55,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
+	//Test case to check if the user can unfollow the other users
 	@Test
 	public void unfollowTest() throws Exception
 	{
@@ -61,6 +65,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
+	//Test case to get the most popular follower of all the users
 	@Test
 	public void mostPopularFollowerTest() throws Exception
 	{
