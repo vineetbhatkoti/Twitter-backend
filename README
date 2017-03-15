@@ -29,7 +29,21 @@ Extra Features:
    
    Eg. userId 9 is followed by userId 1,8,5,6.
    The number of followers userId 1,8,5,6 have are 6,6,2,1.
-   Therefore for userId 9, userId 1 and 8 would be the most popular followers as they both have 6 followers respectively.  	
+   Therefore for userId 9, userId 1 and 8 would be the most popular followers as they both have 6 followers each respectively. Hence, in the output user 9 would have 1 and 8 as most popular follower.  	
+ 
          	    
+ Testing:
+ Junit testing has been add to test the REST API end points. Extra gradle dependency for spring-security-test was added to mock the basic authentication for the API.
+ Test classes can be found in com.thousandeyes.test. Each of the test class can be run as "Junit test case".
+ 
+ ____________________________________________________________________________________________________________________________________________
+ Considerations/Assumptions:
+ 
+ Basic Authentication:
+ Since the users did not have any username and password associated with them hence for simplicity a user with "username: user" and "password: pass" was used to authenticate the API. 
+ To extend the project we can have a complete user table which would have the user information along with the password then we can verify the credentials received from Basic Auth,
+ against those in the database.   
+ 
+ 
     
      
