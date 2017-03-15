@@ -49,8 +49,10 @@ public class TweetDAOImpl implements TweetDAO{
 		Map<String, List> namedParameters = new HashMap<String, List>(); 
 		namedParameters.put("listOfUser", userIds);
 		List<Tweet> tweetList = null;
+		//check if the serarch param is null
 		if(searchParam == null)
 		{
+			//Named Parameter JDBC call to the H2 database
 			tweetList = namedParameterJdbcTemplate.query( "select id, person_id, content from tweet where person_id IN ( :listOfUser )", namedParameters,
 			new RowMapper<Tweet>() {
             public Tweet mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -62,11 +64,13 @@ public class TweetDAOImpl implements TweetDAO{
             } } );
 		}
 		
+		//check for not null scenerio for search param
 		if(searchParam != null)
 		{
 			List<String> str = new ArrayList<String>();
 			str.add("%"+searchParam+"%");
 			namedParameters.put("searchVal", str);
+			//Named Parameter JDBC call to the H2 database
 			tweetList = namedParameterJdbcTemplate.query( "select id, person_id, content from tweet where person_id IN ( :listOfUser ) and content like :searchVal ", namedParameters,
 					new RowMapper<Tweet>() {
 		            public Tweet mapRow(ResultSet rs, int rowNum) throws SQLException {

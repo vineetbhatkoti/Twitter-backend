@@ -40,6 +40,8 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public List<User> getFollowersOfUser(User usr) throws DAOException {
 		SqlParameterSource namedParameters = new MapSqlParameterSource("person_id", usr.getId());
+		
+		//Named Parameter JDBC call to the H2 database
 		List<User> list = namedParameterJdbcTemplate.query(
 		        "select id, name from person where id in (select follower_person_id from followers where person_id = :person_id)",namedParameters,
 		        new RowMapper<User>() {
@@ -61,6 +63,8 @@ public class UserDAOImpl implements UserDAO{
  */		
 	public List<User> getUserFollows(User user) throws DAOException{
 		SqlParameterSource namedParameters = new MapSqlParameterSource("person_id", user.getId());
+		
+		//Named Parameter JDBC call to the H2 database
 		List<User> list = namedParameterJdbcTemplate.query(
 		        "select id, name from person where id in (select person_id from followers where follower_person_id = :person_id);",namedParameters,
 		        new RowMapper<User>() {
@@ -84,6 +88,8 @@ public class UserDAOImpl implements UserDAO{
 		Map<String, Integer> namedParameters = new HashMap<String, Integer>();
 		namedParameters.put("person_id", firstUser.getId());
 		namedParameters.put("follower_person_id", secondUser.getId());
+		
+		//Named Parameter JDBC call to the H2 database
 		int rowCount = namedParameterJdbcTemplate.update(
 		        "insert into followers (person_id, follower_person_id) values (:person_id, :follower_person_id)",
 		        namedParameters );
@@ -108,6 +114,8 @@ public class UserDAOImpl implements UserDAO{
 		Map<String, Integer> namedParameters = new HashMap<String, Integer>();
 		namedParameters.put("person_id", firstUser.getId());
 		namedParameters.put("follower_person_id", secondUser.getId());
+		
+		//Named Parameter JDBC call to the H2 database
 		int rowCount = namedParameterJdbcTemplate.update(
 		        "delete from followers where person_id = :person_id and follower_person_id = :follower_person_id",
 		        namedParameters);
@@ -130,6 +138,8 @@ public class UserDAOImpl implements UserDAO{
  */		
 	public List<PopularUser> mostPopularFollower() throws DAOException {
 		String qry = "select table1.person_id, table1.follower_person_id from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc) as table1  join ( select person_id, max(fol) as fol from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc)   group by person_id ) as table2 on table1.person_id = table2.person_id and table1.fol =table2.fol order by person_id;";
+		
+		//Named Parameter JDBC call to the H2 database
 		List<PopularUser> list = namedParameterJdbcTemplate.query(qry,
 		        new RowMapper<PopularUser>() {
 		            public PopularUser mapRow(ResultSet rs, int rowNum) throws SQLException {
