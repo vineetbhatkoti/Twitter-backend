@@ -38,11 +38,13 @@ public class TweetController {
  */	
 	@RequestMapping(value="/list",method = RequestMethod.GET, produces = "application/json")
     public List<Tweet> tweetList(@RequestParam(value="userId") int userId,@RequestParam(value="search",required=false) String searchParam) {
+		//setting the userid in the bean 
 		User user = new User();
 		user.setId(userId);
 		List<Tweet> tweets = null;
 		List<User> followerList =null;
 		try {
+			//call to the service to get all the people being followed by the user 
 			followerList = userService.getUserFollows(user);
 		} catch (UserException e) {
 			e.printStackTrace();
@@ -50,6 +52,7 @@ public class TweetController {
 		
 		try
 		{
+			//call to the service to get all tweets of the user and the people being followed
 			tweets = tweetService.tweetList(user, followerList, searchParam);
 		}
 		catch(TweetException e)

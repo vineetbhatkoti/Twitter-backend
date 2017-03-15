@@ -32,10 +32,14 @@ public class UserContorller {
  */
 	@RequestMapping(value="/followers",method = RequestMethod.GET, produces = "application/json")
     public List<User> getFollowersOfUser(@RequestParam(value="userId") int id) {
+		
+		//setting the user id in bean
 		User user = new User();
 		user.setId(id);
 		List<User> list =null;
+		
 		try {
+			//call to the service 
 			list = userService.getFollowersOfUser(user);
 		} catch (UserException e) {
 			
@@ -55,10 +59,14 @@ public class UserContorller {
 	
 	@RequestMapping(value="/follows",method = RequestMethod.GET, produces = "application/json")
     public List<User> getUserFollows(@RequestParam(value="userId") int id) {
+		
+		//setting the user id in the bean
 		User user = new User();
 		user.setId(id);
 		List<User> list =null;
+		
 		try {
+			//call to the service
 			list = userService.getUserFollows(user);
 		} catch (UserException e) {
 			
@@ -76,17 +84,22 @@ public class UserContorller {
  */
 	@RequestMapping(value="/startFollowing", method = RequestMethod.POST ,produces = "application/json")
     public ResponseMessage startFollowing(@RequestParam(value="firstUserId") int userId1,@RequestParam(value="secondUserId") int userId2) {
+		
+		//setting user id in respective beans
 		User firstUser = new User();
 		firstUser.setId(userId1);
 		User secondUser = new User();
 		secondUser.setId(userId2);
 		String message =null;
+		
 		try {
+			//call to the service
 			message = userService.startFollowing(firstUser,secondUser);
 		} catch (UserException e) {
 			
 			e.printStackTrace();
 		}
+		//setting the string response in the response bean
 		ResponseMessage response = new ResponseMessage();
 		response.setMessage(message);
 		return response;
@@ -99,18 +112,23 @@ public class UserContorller {
  */	
 	@RequestMapping(value="/unfollow",method= RequestMethod.POST, produces = "application/json")
     public ResponseMessage unfollow(@RequestParam(value="firstUserId") int userId1,@RequestParam(value="secondUserId") int userId2) {
+		
+		//setting user id's in the respective user bean
 		User firstUser = new User();
 		firstUser.setId(userId1);
 		User secondUser = new User();
 		secondUser.setId(userId2);
 		String message =null;
+		
 		try {
+			//call to the service 
 			message = userService.unfollow(firstUser,secondUser);
 		} catch (UserException e) {
 			
 			e.printStackTrace();
 		}
 		
+		//setting the string response in the response bean
 		ResponseMessage response = new ResponseMessage();
 		response.setMessage(message);
 		return response;
@@ -124,7 +142,9 @@ public class UserContorller {
 	@RequestMapping(value="/mostPopularFollower",method = RequestMethod.GET, produces = "application/json")
     public List<PopularUser> mostPopularFollower() {
 		List<PopularUser> list =null;
+		
 		try {
+			//call to the service
 			list = userService.mostPopularFollower();
 		} catch (UserException e) {
 			
