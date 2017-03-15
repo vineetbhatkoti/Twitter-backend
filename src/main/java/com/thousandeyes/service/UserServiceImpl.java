@@ -32,8 +32,10 @@ public class UserServiceImpl implements UserService {
 		try
 		{
 			List<User> list = null;
+			//check if the user is null
 			if(usr != null)
 			{
+				//call to user DAO 
 				list = userDAO.getFollowersOfUser(usr);
 			}
 			return list;
@@ -54,8 +56,10 @@ public class UserServiceImpl implements UserService {
 		try
 		{
 			List<User> list = null;
+			//check if the user is null
 			if(user != null)
 			{
+				//call to the user DAO
 				list = userDAO.getUserFollows(user);
 			}
 			return list;
@@ -76,8 +80,10 @@ public class UserServiceImpl implements UserService {
 		try
 		{
 			String message = null;
+			//check if the users are null
 			if(firstUser != null && secondUser != null)
 			{
+				//call to user DAO
 				message = userDAO.startFollowing(firstUser, secondUser);
 			}
 			return message;
@@ -98,8 +104,10 @@ public class UserServiceImpl implements UserService {
 		try
 		{
 			String message = null;
+			//check if the user is null
 			if(firstUser != null && secondUser != null)
 			{
+				//call to the user DAO
 				message = userDAO.unfollow(firstUser, secondUser);
 			}
 			return message;
@@ -121,6 +129,7 @@ public class UserServiceImpl implements UserService {
 		try
 		{
 			List<PopularUser> listUser= null;
+			//call to the user DAO
 			listUser = userDAO.mostPopularFollower();
 			return listUser;
 		}

@@ -33,8 +33,10 @@ public class TweetServiceImpl implements TweetService{
 		try
 		{
 			List<Tweet> tweetList = null;
+			//check if user is null
 			if(user != null)
 			{
+				//call to the tweet DAO
 				tweetList = tweetDAO.tweetList(user,followerList,searchParam);
 			}
 			return tweetList;
