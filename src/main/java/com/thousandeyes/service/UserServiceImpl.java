@@ -10,11 +10,23 @@ import com.thousandeyes.exception.UserException;
 import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
+
+/*
+ * @desc: This is the service implementation class for the user requests
+ * @author: Vineet Bhatkoti
+ */
+
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAOImpl userDAO;
+
 	
+/*
+ * @desc: This service method is used to retrieve all the followers of the user
+ * @param: User user
+ * @return: List<User> 	
+ */
 	@Override
 	public List<User> getFollowersOfUser(User usr) throws UserException {
 		try
@@ -32,6 +44,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+
+/*
+ * @desc: This service method is used to retrieve all the people that the user follows
+ * @param: User user
+ * @return: List<User>
+ */
 	public List<User> getUserFollows(User user) throws UserException{
 		try
 		{
@@ -48,6 +66,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	
+/*
+ * @desc: This service method is used to start following other users
+ * @param: User firstUser, User secondUser
+ * @return: String response for success or failure
+ */	
 	public String startFollowing(User firstUser, User secondUser)  throws UserException{
 		try
 		{
@@ -64,6 +88,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	
+/*
+ * @desc: This service method is used to unfollow users
+ * @param: User firstUser, User secondUser
+ * @return: String response for success or failure
+ */		
 	public String unfollow(User firstUser, User secondUser) throws UserException {
 		try
 		{
@@ -80,6 +110,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	
+/*
+ * @desc: This service method is used retrieve the most popular followers of the user
+ * @param: None
+ * @return: List<PopularUser> (List of popular users of the user)
+ */		
 	public List<PopularUser> mostPopularFollower() throws UserException{
 		
 		try

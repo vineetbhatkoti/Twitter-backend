@@ -1,5 +1,9 @@
 package com.thousandeyes.exception;
 
+/*
+ * @desc: This is a custom class for handling all the User Exceptions
+ * @author: Vineet Bhatkoti
+ */
 public class UserException extends Exception {
 	
 	/**

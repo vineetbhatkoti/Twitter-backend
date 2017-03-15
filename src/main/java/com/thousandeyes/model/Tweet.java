@@ -1,5 +1,9 @@
 package com.thousandeyes.model;
 
+/*
+ * @desc: This is model class for tweets
+ * @author: Vineet Bhatkoti
+ */
 public class Tweet {
 	private int id;
 	private int personId;

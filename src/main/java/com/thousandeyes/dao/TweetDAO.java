@@ -8,6 +8,10 @@ import com.thousandeyes.exception.DAOException;
 import com.thousandeyes.model.Tweet;
 import com.thousandeyes.model.User;
 
+/*
+ * @desc: This is the DAO interface for the tweets requests
+ * @author: Vineet Bhatkoti
+ */
 
 @Repository
 public interface TweetDAO {

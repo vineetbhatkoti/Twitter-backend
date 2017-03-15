@@ -17,6 +17,11 @@ import com.thousandeyes.exception.DAOException;
 import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
+/*
+ * @desc: This is the DAO implementation class for the user requests
+ * @author: Vineet Bhatkoti
+ */
+
 @Repository
 public class UserDAOImpl implements UserDAO{
 	
@@ -25,7 +30,13 @@ public class UserDAOImpl implements UserDAO{
 	public void setDataSource(DataSource dataSource) {
 	    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
+
 	
+/*
+ * @desc: This DAO method is used to retrieve all the followers of the user
+ * @param: User user
+ * @return: List<User> (list of all the users)	
+ */	
 	@Override
 	public List<User> getFollowersOfUser(User usr) throws DAOException {
 		SqlParameterSource namedParameters = new MapSqlParameterSource("person_id", usr.getId());
@@ -43,6 +54,11 @@ public class UserDAOImpl implements UserDAO{
 		return list;
 	}
 
+/*
+ * @desc: This DAO method is used to retrieve all the users being followed by the logged in user 
+ * @param: User user
+ * @return: List<User> (list of all the users)	
+ */		
 	public List<User> getUserFollows(User user) throws DAOException{
 		SqlParameterSource namedParameters = new MapSqlParameterSource("person_id", user.getId());
 		List<User> list = namedParameterJdbcTemplate.query(
@@ -52,7 +68,6 @@ public class UserDAOImpl implements UserDAO{
 		                User user = new User();
 		                user.setId(rs.getInt("id"));
 		                user.setName(rs.getString("name"));
-		                
 		                return user;
 		            }
 		        });
@@ -60,6 +75,11 @@ public class UserDAOImpl implements UserDAO{
 		
 	}
 
+/*
+ * @desc: This DAO method is used to start following the other user 
+ * @param: User firstUser, User secondUser
+ * @return: String response for success or failure	
+ */			
 	public String startFollowing(User firstUser, User secondUser) throws DAOException{
 		Map<String, Integer> namedParameters = new HashMap<String, Integer>();
 		namedParameters.put("person_id", firstUser.getId());
@@ -79,6 +99,11 @@ public class UserDAOImpl implements UserDAO{
 		return message;
 	}
 
+/*
+ * @desc: This DAO method is used to unfollow other users  
+ * @param: User firstUser, User secondUser
+ * @return: String response for success or failure	
+ */		
 	public String unfollow(User firstUser, User secondUser)  throws DAOException{
 		Map<String, Integer> namedParameters = new HashMap<String, Integer>();
 		namedParameters.put("person_id", firstUser.getId());
@@ -98,6 +123,11 @@ public class UserDAOImpl implements UserDAO{
 		return message;
 	}
 
+/*
+ * @desc: This DAO method is used to retrieve the most popular follower of the user  
+ * @param: None
+ * @return: List<PopularUser> (list of the users along with the most popular user)	
+ */		
 	public List<PopularUser> mostPopularFollower() throws DAOException {
 		String qry = "select table1.person_id, table1.follower_person_id from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc) as table1  join ( select person_id, max(fol) as fol from (select t1.person_id, t1.follower_person_id , t2.fol from (select a.person_id, a.follower_person_id from followers a order by a.person_id) as t1  right join (select b.person_id as per, count(b.follower_person_id) as fol from followers b group by b.person_id order by b.person_id) as t2 on t1.follower_person_id = t2.per order by t1.person_id, t2.fol desc)   group by person_id ) as table2 on table1.person_id = table2.person_id and table1.fol =table2.fol order by person_id;";
 		List<PopularUser> list = namedParameterJdbcTemplate.query(qry,

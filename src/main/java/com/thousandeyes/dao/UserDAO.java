@@ -8,6 +8,11 @@ import com.thousandeyes.exception.DAOException;
 import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
+/*
+ * @desc: This is the DAO interface for the user requests
+ * @author: Vineet Bhatkoti
+ */
+
 @Repository
 public interface UserDAO {
 	public List<User> getFollowersOfUser(User usr) throws DAOException;

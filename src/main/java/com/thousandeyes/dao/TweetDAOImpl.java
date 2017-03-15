@@ -15,6 +15,10 @@ import com.thousandeyes.exception.DAOException;
 import com.thousandeyes.model.Tweet;
 import com.thousandeyes.model.User;
 
+/*
+ * @desc: This is the DAO implementation class for the tweet requests
+ * @author: Vineet Bhatkoti
+ */
 
 @Repository
 public class TweetDAOImpl implements TweetDAO{
@@ -25,6 +29,12 @@ public class TweetDAOImpl implements TweetDAO{
 	    this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
+
+/*
+ * @desc: This DAO method is used to retrieve all the Tweets of the user and the users they follow
+ * @param: User user, List<User> followerList, String searchParam
+ * @return: List<Tweet> (list of all the tweets)	
+ */	
 	@Override
 	public List<Tweet> tweetList(User user, List<User> followerList, String searchParam) throws DAOException
 	{

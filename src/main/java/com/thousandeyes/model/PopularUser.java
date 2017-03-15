@@ -1,5 +1,9 @@
 package com.thousandeyes.model;
 
+/*
+ * @desc: This is model class for popular users
+ * @author: Vineet Bhatkoti
+ */
 public class PopularUser {
 	private int userId;
 	private int mostPopularFollowerId;

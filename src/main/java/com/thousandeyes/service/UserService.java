@@ -8,6 +8,11 @@ import com.thousandeyes.exception.UserException;
 import com.thousandeyes.model.PopularUser;
 import com.thousandeyes.model.User;
 
+/*
+ * @desc: This is the service interface for the user requests
+ * @author: Vineet Bhatkoti
+ */
+
 @Service
 public interface UserService {
 	public List<User> getFollowersOfUser(User usr) throws UserException;

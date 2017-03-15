@@ -8,6 +8,12 @@ import com.thousandeyes.exception.TweetException;
 import com.thousandeyes.model.Tweet;
 import com.thousandeyes.model.User;
 
+/*
+ * @desc: This is the service interface for the tweets requests
+ * @author: Vineet Bhatkoti
+ */
+
+
 @Service
 public interface TweetService {
 	
